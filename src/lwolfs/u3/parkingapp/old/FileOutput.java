@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package lwolfs.u3.parkingapp;
+package lwolfs.u3.parkingapp.old;
 
 import java.io.*;
 import java.util.List;

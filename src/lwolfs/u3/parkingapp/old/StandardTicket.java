@@ -1,19 +1,20 @@
 
-package lwolfs.u3.parkingapp;
+package lwolfs.u3.parkingapp.old;
 
 import java.io.Serializable;
 import java.time.*;
+import static java.time.temporal.ChronoUnit.MINUTES;
 
 /**
  *
  * @author Exile
  */
-public class StandardTicket implements Serializable, TicketInterface {
+public class StandardTicket implements Serializable, ITicket {
     private final LocalTime CHECK_IN_TIME;
     private final int TICKET_ID;
-    private boolean isPaid;
     private static TicketType type = TicketType.STANDARD;
     private LocalTime checkOutTime;
+    private int billableHours;
 
     /**
      *
@@ -24,8 +25,8 @@ public class StandardTicket implements Serializable, TicketInterface {
     public StandardTicket(int TICKET_ID, boolean isPaid, LocalTime CHECK_IN_TIME) {
        
         this.TICKET_ID = TICKET_ID;
-        this.isPaid = isPaid;
         this.CHECK_IN_TIME = CHECK_IN_TIME;
+        billableHours = 0;
         
     }
 
@@ -67,7 +68,6 @@ public class StandardTicket implements Serializable, TicketInterface {
         
         this.CHECK_IN_TIME = CHECK_IN_TIME;
         this.TICKET_ID = TICKET_ID;
-        this.isPaid = isPaid;
         this.checkOutTime = checkOutTime;
     }
     
@@ -102,24 +102,6 @@ public class StandardTicket implements Serializable, TicketInterface {
      */
     public int getTICKET_ID() {
         return TICKET_ID;
-    }
-    
-    /**
-     *
-     * @param status
-     */
-    public void setIsPaid(boolean status)
-    {
-        this.isPaid = true;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public boolean IsPaid()
-    {
-        return isPaid;
     }
 
     /**
@@ -156,6 +138,30 @@ public class StandardTicket implements Serializable, TicketInterface {
     @Override
     public int getMIN_PARKING_TIME() {
         return MIN_PARKING_TIME;
+    }
+
+    @Override
+    public double getFee() {
+        setBillableHours();
+        double fee = (BASE_FEE_RATE + (billableHours * RATE_PER_HOUR));
+        if( fee > MAX_FEE)
+        {
+            return MAX_FEE;
+        }
+        else
+        {
+            return fee;
+        }
+    }
+    
+    private void setBillableHours()
+    {
+        int hours = ((int)MINUTES.between(CHECK_IN_TIME, checkOutTime)/60);
+        if(hours < MIN_PARKING_TIME)
+        {
+            hours = MIN_PARKING_TIME;
+        }
+        this.billableHours = hours;
     }
 
     

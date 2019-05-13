@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package lwolfs.u3.parkingapp;
+package lwolfs.u3.parkingapp.old;
 
 import java.io.Serializable;
 
@@ -12,9 +12,8 @@ import java.io.Serializable;
  *
  * @author Exile
  */
-public class LostTicket implements Serializable, TicketInterface {
+public class LostTicket implements Serializable, ITicket {
     private final int TICKET_ID;
-    private boolean isPaid;
     private TicketType type = TicketType.LOST;
 
     /**
@@ -24,8 +23,6 @@ public class LostTicket implements Serializable, TicketInterface {
      */
     public LostTicket(int TICKET_ID, boolean isPaid) {
         this.TICKET_ID = TICKET_ID;
-
-        this.isPaid = isPaid;
     }
 
     /**
@@ -45,23 +42,6 @@ public class LostTicket implements Serializable, TicketInterface {
     {
         return type.toString();
     }
-
-    /**
-     *
-     * @return
-     */
-    public boolean IsPaid() {
-        return isPaid;
-    }
-
-    /**
-     *
-     * @param isPaid
-     */
-    public void setIsPaid(boolean isPaid) {
-        this.isPaid = isPaid;
-    }
-
     /**
      *
      * @return
@@ -104,6 +84,11 @@ public class LostTicket implements Serializable, TicketInterface {
     @Override
     public int getMIN_PARKING_TIME() {
         return MIN_PARKING_TIME;
+    }
+
+    @Override
+    public double getFee() {
+        return LOST_TICKET_FEE;
     }
     
     
