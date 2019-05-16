@@ -6,6 +6,7 @@
 
 import java.io.IOException;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import lwolfs.u3.ParkingAppFinal.CheckInMachine;
@@ -133,7 +134,7 @@ public class TicketTest {
     @Test
     public void canPrintSummary()
     {
-        MenuPrinter.printGarageSummary(0, 0, 0, 0, 0, 0);
+        MenuPrinter.printGarageSummary(new ArrayList<List<String>>());
     }
     @Test
     public void canLoadTicketData() throws IOException
