@@ -5,12 +5,11 @@
  */
 package lwolfs.u3.ParkingAppFinal;
 
-import java.time.LocalTime;
-import lwolfs.u3.parkingapp.FeeStrategy.TicketFactoryImpl;
+
 
 /**
  * Check in machine for creating tickets
- * @author Lucas Wolfs <lwolfs@my.wctc.edu>
+ * @author Lucas Wolfs lwolfs@my.wctc.edu
  */
 public class CheckInMachine {
     

@@ -24,7 +24,7 @@ public class FileInput {
      * Reads ticket data from file
      * @param fileName File path of data file
      * @return Arraylist of Ticket data
-     * @throws IOException 
+     * @throws IOException  throws exception if error reading file
      */
     public static List<Ticket> loadTickets(String fileName) throws IOException
     {

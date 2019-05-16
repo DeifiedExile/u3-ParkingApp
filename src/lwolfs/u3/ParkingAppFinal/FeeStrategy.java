@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  * Fee Strategy for standard tickets
- * @author Lucas Wolfs <lwolfs@my.wctc.edu>
+ * @author Lucas Wolfs lwolfs@my.wctc.edu
  */
 public interface FeeStrategy extends Serializable {
     /**
@@ -24,13 +24,16 @@ public interface FeeStrategy extends Serializable {
     double getMaxFee();
     /**
      * returns actual fee
+     * @param hours hours to calculate fee from as int
      * @return fee as double
      */
     double getFee(int hours);
     
     /**
      * Returns receipt String
-     * @return 
+     * @return returns receipt string
+     * @param receiptString Initial receipt string
+     * @param hours hours used for fee
      */
     String toReceiptString(String receiptString, int hours);
     /**

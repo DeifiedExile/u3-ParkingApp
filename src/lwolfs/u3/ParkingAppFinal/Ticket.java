@@ -11,7 +11,7 @@ import static java.time.temporal.ChronoUnit.MINUTES;
 
 /**
  *
- * @author Lucas Wolfs <lwolfs@my.wctc.edu>
+ * @author Lucas Wolfs lwolfs@my.wctc.edu
  */
 public class Ticket implements Serializable {
     

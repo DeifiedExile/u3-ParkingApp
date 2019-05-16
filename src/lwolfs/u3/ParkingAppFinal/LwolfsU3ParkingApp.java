@@ -16,7 +16,7 @@ import lwolfs.u3.parkingapp.FeeStrategy.TicketFactoryImpl;
 
 /**
  *
- * @author Lucas Wolfs <lwolfs@my.wctc.edu>
+ * @author Lucas Wolfs lwolfs@my.wctc.edu
  */
 public class LwolfsU3ParkingApp {
     final String FILE_PATH = "tickets.dat";

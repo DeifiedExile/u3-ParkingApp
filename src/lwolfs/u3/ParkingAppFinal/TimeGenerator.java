@@ -10,7 +10,7 @@ import java.util.Random;
 
 /**
  * Generates a time for check in and check out
- * @author Lucas Wolfs <lwolfs@my.wctc.edu>
+ * @author Lucas Wolfs lwolfs@my.wctc.edu
  */
 public enum TimeGenerator {
     INSTANCE;

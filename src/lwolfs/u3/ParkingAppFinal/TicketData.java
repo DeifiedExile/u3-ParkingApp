@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * Singleton Enum for storing Ticket data list
- * @author Lucas Wolfs <lwolfs@my.wctc.edu>
+ * @author Lucas Wolfs lwolfs@my.wctc.edu
  */
 public enum TicketData {
     INSTANCE;
@@ -28,7 +28,7 @@ public enum TicketData {
     }
     /**
      * Gets list of tickets
-     * @return List<Ticket> to return
+     * @return List of Ticket to return
      */
     public List<Ticket> getTicketList()
     {

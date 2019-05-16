@@ -11,7 +11,7 @@ import lwolfs.u3.ParkingAppFinal.Ticket;
 
 /**
  * Standard ticket fee strategy
- * @author Lucas Wolfs <lwolfs@my.wctc.edu>
+ * @author Lucas Wolfs lwolfs@my.wctc.edu
  */
 public class StandardFee implements FeeStrategy {
     private final double MINIMUM_FEE = 5.00;

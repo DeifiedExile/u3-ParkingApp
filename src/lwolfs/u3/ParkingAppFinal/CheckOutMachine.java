@@ -9,14 +9,14 @@ import java.time.LocalTime;
 
 /**
  * Check out machine for closing tickets
- * @author Lucas Wolfs <lwolfs@my.wctc.edu>
+ * @author Lucas Wolfs lwolfs@my.wctc.edu
  */
 public class CheckOutMachine {
     
     /**
      * closes a ticket, setting checkout time
-     * @param id
-     * @return 
+     * @param id ticket id
+     * @return returns ticket after checkout
      */
     public Ticket checkOut(int id)
     {

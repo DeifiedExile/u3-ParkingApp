@@ -9,7 +9,7 @@ import lwolfs.u3.ParkingAppFinal.FeeStrategy;
 
 /**
  * Lost ticket fee strategy
- * @author Lucas Wolfs <lwolfs@my.wctc.edu>
+ * @author Lucas Wolfs lwolfs@my.wctc.edu
  */
 public class LostFee implements FeeStrategy {
     private final double FEE = 25;

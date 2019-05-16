@@ -9,7 +9,7 @@ import java.time.LocalTime;
 
 /**
  * Abstract Factory for creating tickets
- * @author Lucas Wolfs <lwolfs@my.wctc.edu>
+ * @author Lucas Wolfs lwolfs@my.wctc.edu
  */
 public interface ITicketFactory {
     Ticket getTicket(int id, LocalTime checkInTime, String feeType);

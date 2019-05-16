@@ -11,7 +11,7 @@ import lwolfs.u3.ParkingAppFinal.Ticket;
 
 /**
  * Returns a ticket based on given criteria
- * @author Lucas Wolfs <lwolfs@my.wctc.edu>
+ * @author Lucas Wolfs lwolfs@my.wctc.edu
  */
 public class TicketFactoryImpl implements ITicketFactory{
 
