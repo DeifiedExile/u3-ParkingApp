@@ -5,7 +5,13 @@
  */
 package lwolfs.u3.ParkingAppFinal;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import static java.util.stream.Collectors.toList;
 import lwolfs.u3.parkingapp.FeeStrategy.TicketFactoryImpl;
 
 /**
@@ -154,40 +160,52 @@ public class LwolfsU3ParkingApp {
      */
     public void closeGarage()
     {
-        double standardRevenue = 0;
-        double eventRevenue = 0;
-        double lostTicketRevenue = 0;
-        int standardCount = 0;
-        int eventCount = 0;
-        int lostCount = 0;
         
-        for(Ticket t : TicketData.INSTANCE.getTicketList())
+        List<List<String>> totals = new ArrayList<List<String>>();
+//        double standardRevenue = 0;
+//        double eventRevenue = 0;
+//        double lostTicketRevenue = 0;
+//        int standardCount = 0;
+//        int eventCount = 0;
+//        int lostCount = 0;
+        List<Ticket> ticketList = TicketData.INSTANCE.getTicketList();
+        //double revenue = 0;
+        List<Integer> toRemove = new ArrayList<Integer>();
+        
+        Map<String, List<Ticket>> cache = new HashMap<String, List<Ticket>>();
+        for(Ticket t : ticketList)
         {
-            if(t.getFeeType().equalsIgnoreCase("standard"))
+            List<Ticket> list = cache.get(t.getFeeType());
+            if(list == null)
             {
-                standardCount++;
-                if(t.getCheckOutTime() != null)
-                {
-                    standardRevenue += t.getFee();
-                }
-                
+                list = new ArrayList<Ticket>();
+                cache.put(t.getFeeType(), list);
             }
-            else if(t.getFeeType().equalsIgnoreCase("event"))
-            {
-                eventCount++;
-                if(t.getCheckOutTime() != null)
-                {
-                    eventRevenue += t.getFee();
-                }
-            }
-            else if(t.getFeeType().equalsIgnoreCase("lost"))
-            {
-                lostCount++;
-                lostTicketRevenue += t.getFee();
-            }
+            list.add(t);
         }
+        for(List<Ticket> lt : cache.values())
+        {
+            List<String> totalEntry = new ArrayList<String>();
+            double revenue = 0;
+            int count = 0;
+            String type = "";
+            for(Ticket t : lt)
+            {
+                if(t.getCheckOutTime() != null)
+                {
+                    revenue += t.getFee();
+                }
+                count++;
+                type = t.getFeeType();
+            }
+            totalEntry.add(String.valueOf(revenue));
+            totalEntry.add(String.valueOf(count));
+            totalEntry.add(type);
+            totals.add(totalEntry);
+        }
+        MenuPrinter.printGarageSummary(totals);
         
-        MenuPrinter.printGarageSummary(standardRevenue, eventRevenue, lostTicketRevenue, standardCount, eventCount, lostCount);
+
         FileOutput fo = new FileOutput(this.FILE_PATH);
         fo.saveToFile(TicketData.INSTANCE.getTicketList());
         System.exit(0);
