@@ -18,7 +18,7 @@ public class Ticket implements Serializable {
     private FeeStrategy feeStrategy;
     private final int ticketID;
     private final LocalTime CHECK_IN_TIME;
-    private LocalTime checkOutTime;
+    private LocalTime checkOutTime = null;
     
     /**
      * Constructor for Tickets. 
@@ -80,7 +80,15 @@ public class Ticket implements Serializable {
      * @return LocalTime checkOutTime
      */
     public LocalTime getCheckOutTime() {
-        return checkOutTime;
+        if(checkOutTime != null)
+        {
+            return checkOutTime;
+        }
+        else
+        {
+            return null;
+        }
+        
     }
 
     /**
@@ -100,12 +108,44 @@ public class Ticket implements Serializable {
     }
     /**
      * Gets hours parked
-     * @return hours parked as int
+     * @return hours parked as int rounded up
      */
     private int getHoursParked()
     {
-        return (int)Math.floorDiv(MINUTES.between(CHECK_IN_TIME, checkOutTime), 60);
+        return (int)Math.ceil(MINUTES.between(CHECK_IN_TIME, checkOutTime)/60);
     }
+    /**
+     * String output for check in purposes
+     * @return String to output
+     */
+    public String toCheckInString()
+    {
+        String output = String.format("Ticket Created.\nTicket ID: %d\nCheck In Time: %s", this.ticketID, this.CHECK_IN_TIME.toString());
+        
+        return output;
+    }
+    
+    /**
+     * String output for receipt purposes
+     * @return receipt string
+     */
+    public String toCheckOutString()
+    {
+        String output = String.format("Receipt for Vehicle ID %d\n\n", this.ticketID);
+        String info = String.format("%d Hours Parked   %s - %s", this.getHoursParked(), this.CHECK_IN_TIME.toString(), this.checkOutTime.toString());
+        info = this.feeStrategy.toReceiptString(info, getHoursParked());
+        output = output + info;
+        return output;
+    }
+    /**
+     * Returns type of fee strategy
+     * @return fee type
+     */
+    public String getFeeType()
+    {
+        return this.feeStrategy.toTypeString();
+    }
+    
     
     
     

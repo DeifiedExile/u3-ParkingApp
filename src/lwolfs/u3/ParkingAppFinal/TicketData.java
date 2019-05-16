@@ -16,7 +16,7 @@ public enum TicketData {
     INSTANCE;
     
     private int TICKET_COUNT;
-    private List<Ticket> TICKET_LIST;
+    private List<Ticket> ticketList;
     
     /**
      * Constructor. Initializes TICKET_COUNT and TICKET_LIST
@@ -24,7 +24,7 @@ public enum TicketData {
     private TicketData()
     {
         TICKET_COUNT = 0;
-        TICKET_LIST = new ArrayList<Ticket>();
+        ticketList = new ArrayList<Ticket>();
     }
     /**
      * Gets list of tickets
@@ -32,7 +32,7 @@ public enum TicketData {
      */
     public List<Ticket> getTicketList()
     {
-        return TICKET_LIST;
+        return ticketList;
     }
     /**
      * gets a single ticket
@@ -41,7 +41,7 @@ public enum TicketData {
      */
     public Ticket getTicket(int id)
     {
-        for(Ticket t : TICKET_LIST)
+        for(Ticket t : ticketList)
         {
             if(t.getTicketID() == id)
             {
@@ -56,7 +56,7 @@ public enum TicketData {
      */
     public void addTicket(Ticket ticket)
     {
-        TICKET_LIST.add(ticket);
+        ticketList.add(ticket);
     }
     /**
      * Get next ticketID
@@ -64,14 +64,25 @@ public enum TicketData {
      */
     public int getNextID()
     {
-        int id = 0;
-        for(Ticket t : TICKET_LIST)
+        int id = 1;
+        boolean test = false;
+//        if(!ticketList.isEmpty())
+//        {
+            id = ticketList.size();
+//        }
+        
+        do
         {
-            if(t.getTicketID() > id)
+            for(Ticket t : ticketList)
             {
-                id = t.getTicketID()+1;
+                if(t.getTicketID() == id)
+                {
+                    id++;
+                    test = true;
+                }
             }
-        }
+        }while(test);
+        
         return id;
     }
     

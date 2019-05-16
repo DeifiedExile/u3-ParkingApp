@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lwolfs.u3.parkingapp.old;
+package lwolfs.u3.ParkingAppFinal;
+
 
 import java.io.FileInputStream;
 
@@ -25,9 +26,9 @@ public class FileInput {
      * @return Arraylist of Ticket data
      * @throws IOException 
      */
-    public static List<TicketInterface> loadTickets(String fileName) throws IOException
+    public static List<Ticket> loadTickets(String fileName) throws IOException
     {
-        List<TicketInterface> tickets = new ArrayList<TicketInterface>();
+        List<Ticket> tickets = new ArrayList<Ticket>();
 
         try {
             fis = new FileInputStream(fileName);
@@ -41,7 +42,7 @@ public class FileInput {
             try
             {
                 Object obj = ois.readObject();
-                TicketInterface ticket = (TicketInterface)obj;
+                Ticket ticket = (Ticket)obj;
                 tickets.add(ticket);
             }
             catch(Exception eof)

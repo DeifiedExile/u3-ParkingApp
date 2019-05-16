@@ -9,7 +9,7 @@ import java.time.LocalTime;
 import lwolfs.u3.parkingapp.FeeStrategy.TicketFactoryImpl;
 
 /**
- *
+ * Check in machine for creating tickets
  * @author Lucas Wolfs <lwolfs@my.wctc.edu>
  */
 public class CheckInMachine {
@@ -30,7 +30,7 @@ public class CheckInMachine {
      */
     public Ticket checkIn(String strategy)
     {
-        Ticket ticket = factory.getTicket(TicketData.INSTANCE.getNextID(), LocalTime.now(), strategy);
+        Ticket ticket = factory.getTicket(TicketData.INSTANCE.getNextID(), TimeGenerator.getTime(7, 12) , strategy);
         TicketData.INSTANCE.addTicket(ticket);
         return ticket;
     }

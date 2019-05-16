@@ -5,11 +5,13 @@
  */
 package lwolfs.u3.ParkingAppFinal;
 
+import java.io.Serializable;
+
 /**
  * Fee Strategy for standard tickets
  * @author Lucas Wolfs <lwolfs@my.wctc.edu>
  */
-public interface FeeStrategy {
+public interface FeeStrategy extends Serializable {
     /**
      * Returns minimum fee
      * @return minimum fee amount as double
@@ -25,4 +27,16 @@ public interface FeeStrategy {
      * @return fee as double
      */
     double getFee(int hours);
+    
+    /**
+     * Returns receipt String
+     * @return 
+     */
+    String toReceiptString(String receiptString, int hours);
+    /**
+     * returns string of ticket type
+     * @return String to return
+     */
+    String toTypeString();
+            
 }

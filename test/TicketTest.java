@@ -4,15 +4,22 @@
  * and open the template in the editor.
  */
 
+import java.io.IOException;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Random;
 import lwolfs.u3.ParkingAppFinal.CheckInMachine;
+import lwolfs.u3.ParkingAppFinal.CheckOutMachine;
+import lwolfs.u3.ParkingAppFinal.FileInput;
+import lwolfs.u3.ParkingAppFinal.MenuPrinter;
+import lwolfs.u3.ParkingAppFinal.TimeGenerator;
 import lwolfs.u3.ParkingAppFinal.Ticket;
 import lwolfs.u3.ParkingAppFinal.TicketData;
 import lwolfs.u3.parkingapp.FeeStrategy.EventFee;
 import lwolfs.u3.parkingapp.FeeStrategy.LostFee;
 import lwolfs.u3.parkingapp.FeeStrategy.StandardFee;
 import lwolfs.u3.parkingapp.FeeStrategy.TicketFactoryImpl;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -32,17 +39,21 @@ public class TicketTest {
     Random random = new Random();
     CheckInMachine checkIn;
     TicketData ticketData;
+    CheckOutMachine checkOut;
+
     
     public TicketTest() {
     }
 
     @Before
     public void setUp() {
-        standardTicket = new Ticket(00001, LocalTime.NOON, new StandardFee());
-        lostTicket = new Ticket(00002, LocalTime.MIDNIGHT, new LostFee());
-        eventTicket = new Ticket(00003, LocalTime.MAX, new EventFee());
+        
         checkIn = new CheckInMachine(new TicketFactoryImpl());
+        checkOut = new CheckOutMachine();
         ticketData = TicketData.INSTANCE;
+        standardTicket = checkIn.checkIn("standard");
+        lostTicket = checkOut.checkOut(checkIn.checkIn("lost").getTicketID());
+        eventTicket = checkIn.checkIn("event");
         
     }
     
@@ -76,30 +87,62 @@ public class TicketTest {
         double fee = 20;
         assertEquals(fee, eventTicket.getMinimumFee(), 0d);
     }
-    @Test
-    public void canGetTicketIDs()
-    {
-        assertEquals(standardTicket.getTicketID(), 00001);
-        assertEquals(lostTicket.getTicketID(), 00002);
-        assertEquals(eventTicket.getTicketID(), 00003);
-    }
-    @Test
-    public void canGetCheckInTime()
-    {
-        LocalTime ciTime = LocalTime.NOON;
-        assertEquals(ciTime, standardTicket.getCHECK_IN_TIME());
-    }
+    
     @Test
     public void canSetCheckOutTime()
     {
         
         standardTicket.setCheckOutTime(LocalTime.of(random.nextInt(23), 0));
     }
+    @Test
     public void canCheckIn()
     {
         Ticket t = checkIn.checkIn("standard");
         
         assertEquals(t.getFeeStrategy().getClass(), StandardFee.class);
     }
+    @Test
+    public void canGenerateRandomTime()
+    {
+        
+        LocalTime lt = TimeGenerator.getTime(7, 12);
+        assertTrue(lt.getHour()>=7);
+        assertTrue(lt.getHour()<12);
+        
+        
+    }
+    @Test
+    public void canPrintInfo()
+    {
+        MenuPrinter.printTicketInfo(standardTicket);
+    }
+    @Test
+    public void canPrintReceipt()
+    {
+        checkOut.checkOut(standardTicket.getTicketID());
+        MenuPrinter.printTicketReceipt(standardTicket);
+    }
+    @Test
+    public void canPrintMenus()
+    {
+        MenuPrinter.printCheckInMainMenu();
+        MenuPrinter.printCheckOutMainMenu();
+        MenuPrinter.printMainMenu();
+        
+    }
+    @Test
+    public void canPrintSummary()
+    {
+        MenuPrinter.printGarageSummary(0, 0, 0, 0, 0, 0);
+    }
+    @Test
+    public void canLoadTicketData() throws IOException
+    {
+        
+        List<Ticket> tickets = FileInput.loadTickets("tickets.dat");
+    }
+    
+    
+    
 
 }
