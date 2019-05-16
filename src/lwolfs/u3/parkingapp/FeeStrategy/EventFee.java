@@ -54,7 +54,7 @@ public class EventFee implements FeeStrategy {
     }
 
     /**
-     * returns String of fee type
+     * returns String of event fee type
      * @return String of fee type
      */
     @Override
